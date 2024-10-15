@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        /* Your existing CSS code */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        h1 {
+            color: #00aa00;
+        }
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #4CAF50;
+            padding-top: 50px;
+            transition: 0.3s;
+            z-index: 1;
+            color: white;
+        }
+        .sidebar a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #45a049;
+        }
+        .content {
+            margin-left: 200px;
+            transition: 0.3s;
+            padding: 20px;
+            text-align: left;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        td {
+            background-color: #fafafa;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background-color: #45a049;
+        }
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .logo {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 10;
+            width: 300px; /* Adjust as needed */
+            height: auto;
+        }
+        .status-column {
+            display: inline-block;
+            width: 45%;
+            margin: 2.5%;
+            vertical-align: top;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+
+        .status-column h3 {
+            margin-top: 0;
+        }
+
+
+        .status-column input, .status-column button, .status-column textarea {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+
+        .status-column textarea {
+            height: 100px;
+        }
+        /* Style for the custom dropdown */
+.custom-dropdown {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    width: 500px; /* Adjust width as needed */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 20px; /* Add margin to push it down */
+}
+
+
+.custom-dropdown:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+
+/* Style for dropdown options */
+.custom-dropdown option {
+    padding: 10px;
+}
+
+
+/* Add a custom arrow to the dropdown */
+.custom-dropdown::-ms-expand {
+    display: none;
+}
+
+
+.custom-dropdown {
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KPHBhdGggZD0iTTUgN2MwLTExLTExLTExLTExLTEgMCA1IDAgMCAxMTAgMCA1IDExIDEgMCAwLTExLTExLTExLTEtMTAtMS0yLjY2Ny00LTEuMDA1OS05LTctOC0xMC0xMyA0LTIuNTIgMCAtMSA5LTgtMTAtMCAxMyA1LTMtMTAtMS0yLjY2Ny00LjA1OTUtMTAtMSAyLTAuMTUgLTEuMDA1OS03LTEuMDA1OS0xLTEuMDA1OS0xLTEuMDA1OS00LjA1OTQtMSAxMCAxMC0xMCAzLTIuNTIgMCA1IDAgMCAxMCAyLTEuMDA1OS0xLTEuMDA1OS00LjA1OTQtMTAtMSAwIDEuMDA1OS0yLjY2Ny0yLjY2NyAwIDEwLTAuNTIxMyAzIDMgMCAwMCAwLTEuMDA1OS0xLTMuNTI4LTExLTExLTEgMCAxLTMtMTAtMCAwMCAwMCAyLTMtMCAwLTIwIDAtMC05LTExLTEyLTEzLTIuNTI4IDAtMCAxLjAwNTktMCAwMCAwMCAxLjAwNTktMCAwMCAwMCAwLTAuMDU5OS0xMCAxMCAyLTE0LTExLTEzLTIuNTI4LTExLTExLTEgMCAxLTEuMDExNyAyLTIwLTIwLTAtMTAtOS0xLTExLTEyLTEwLTEuMDUxMy0xLTItMy04LTEwLTAxIDEwLTExIDEwLTAuMDA1OSAwMCAxLTMtMTAsLTIuNTMgMSAyLTEuMDA1OSAxIC0yLTMgOS04LTIuMDExNy03LTMgNi04LTMgMTAtMjAuMTY0LTEtMi0xLjAwNTktMi0yLTUtN2QtMyAtNSAxMTAsNy0xMCAxMCAyIC0yLTMtMi0xLjAwNTktMy02LTMtNyAtMC01LTEuMDA1OS0yLTMtMi01LTExLTAuMTExOS0yLTMtMS0yMC0xMy00LTEuMDA1OS0yLTEtMi0wLTEtLTMgNTB6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2UtbGluZS1jb2xvcj0iIzAwMCIgc3Ryb2tlLWRhc2h0b3I9Im5vbmUiIHN0cm9rZS1ka2VlcHM9IjAgMC40IiBzdHJva2Utb3BhY2l0eT0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC41IiAvPjwvc3ZnPg==') no-repeat right 10px center;
+    background-size: 20px 20px;
+}
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="showContent('dashboard')">Dashboard</a>
+        <a href="#" onclick="showContent('summary')">Summary</a>
+        <a href="#" onclick="showContent('status')">Status</a>
+    </div>
+
+
+    <div class="content" id="mainContent">
+        <h1>Welcome to Mirza Sewtech!</h1>
+        <p>Innovating Industrial & Agricultural Solutions</p>
+
+
+        <div id="dashboardContent" class="content" style="display: none;">
+        </div>
+
+
+        <div id="summaryContent" class="content" style="display: none;">
+            <h2>Summary</h2>
+            <p>This is the summary content area.</p>
+        </div>
+        <div id="statusContent" class="content" style="display: none;">
+            <div class="status-column">
+                <h3>Printed</h3>
+                <input type="text" id="printedInput" placeholder="Enter lot number">
+                <button class="button" onclick="searchPrinted()">Search</button>
+                <textarea id="printedResult" readonly></textarea>
+            </div>
+            <div class="status-column">
+                <h3>Delivered</h3>
+                <input type="text" id="deliveredInput" placeholder="Enter lot number">
+                <button class="button" onclick="searchDelivered()">Search</button>
+                <textarea id="deliveredResult" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    <img src="{{ url_for('static', filename='Screenshot 2024-06-19 182955.png') }}" alt="Screenshot" id="topRightImage" class="logo">
+
+
+    <script>
+        let currentPage = 1;
+        const rowsPerPage = 10;
+        let totalRows = 0;
+        let totalPages = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+    fetchCompanies();
+    fetchData();
+});
+
+
+        function showContent(content) {
+            var dashboardContent = `
+                <div class="button-container">
+                    <button class="button" onclick="refreshData()">Refresh Data</button>
+                </div>
+               
+               
+<label for="company">Company:</label>
+<select id="company" class="custom-dropdown">
+    <!-- Options will be populated by JavaScript -->
+</select>
+
+
+<label for="categoryFilter">Category:</label>
+<select id="categoryFilter" class="custom-dropdown">
+    <option value="">Select Category</option>
+    <option value="certified">Certified</option>
+    <option value="Certified1">Certified1</option>
+    <option value="Approved">Approved</option>
+    <option value="Basic">Basic</option>
+    <option value="Pre-Basic">Pre-Basic</option>
+</select>
+<p id="entryCount">Showing 0 entries</p>
+
+                <div id="dashboardTable"></div>
+                <div class="pagination" id="pagination"></div>
+            `;
+
+
+            var summaryContent = `
+                <h2>Summary</h2>
+                <p>This is the summary content area.</p>
+            `;
+
+
+            var statusContent = `
+                <div class="status-column">
+                    <h3>Printed</h3>
+                    <input type="text" id="printedInput" placeholder="Enter lot number">
+                    <button class="button" onclick="searchPrinted()">Search</button>
+                    <textarea id="printedResult" readonly></textarea>
+                </div>
+                <div class="status-column">
+                    <h3>Delivered</h3>
+                    <input type="text" id="deliveredInput" placeholder="Enter lot number">
+                    <button class="button" onclick="searchDelivered()">Search</button>
+                    <textarea id="deliveredResult" readonly></textarea>
+                </div>
+            `;
+
+
+            var contentDiv = document.getElementById('mainContent');
+
+
+            if (content === 'dashboard') {
+                contentDiv.innerHTML = dashboardContent;
+                fetchCompanies();
+                // Fetch companies for the dropdown
+                fetchData(); // Fetch data when dashboard tab is selected
+                document.getElementById('categoryFilter').addEventListener('change', filterByCategory);
+            } else if (content === 'summary') {
+                contentDiv.innerHTML = summaryContent;
+            } else if (content === 'status') {
+                contentDiv.innerHTML = statusContent;
+            }
+        }
+
+
+        function fetchCompanies() {
+            fetch('/companies')
+                .then(response => response.json())
+                .then(data => {
+                    let companySelect = document.getElementById('company');
+                    companySelect.innerHTML = '<option value="all">All</option>'; // Default option
+                    data.forEach(company => {
+                        companySelect.innerHTML += `<option value="${company}">${company}</option>`;
+                    });
+                    companySelect.addEventListener('change', filterByCompany);
+                })
+                .catch(error => console.error('Error fetching companies:', error));
+        }
+
+
+        function fetchData() {
+    let companyFilter = document.getElementById('company').value;
+    let categoryFilter = document.getElementById('categoryFilter').value;
+    let url = `/dashboard-data?category=${encodeURIComponent(categoryFilter)}`;
+
+    if (companyFilter !== '') {
+        url += `&company=${encodeURIComponent(companyFilter)}`;
+    }
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            totalRows = data.length;
+            totalPages = Math.ceil(totalRows / rowsPerPage);
+            renderTable(data, currentPage);
+            renderPagination(totalPages);
+            updateEntryCount(data.length); // Update entry count here
+        })
+        .catch(error => console.error('Error fetching dashboard data:', error));
+}
+
+function updateEntryCount(count) {
+    document.getElementById('entryCount').innerText = `Showing ${count} entries`;
+}
+
+function fetchCompanies() {
+    fetch('/companies')
+        .then(response => response.json())
+        .then(data => {
+            let companySelect = document.getElementById('company');
+            companySelect.innerHTML = '<option value="all">All</option>'; // Default option
+            data.forEach(company => {
+                companySelect.innerHTML += `<option value="${company}">${company}</option>`;
+            });
+            companySelect.addEventListener('change', filterByCompany);
+        })
+        .catch(error => console.error('Error fetching companies:', error));
+}
+
+
+function filterByCompany() {
+    fetchData(); // Fetch data based on the selected company
+}
+function filterByCategory() {
+    fetchData(); // Fetch data based on the selected category
+}
+
+
+
+
+document.getElementById('categoryFilter').addEventListener('change', fetchData);
+
+
+
+
+        function renderTable(data, page) {
+            let start = (page - 1) * rowsPerPage;
+            let end = start + rowsPerPage;
+            let paginatedData = data.slice(start, end);
+
+
+            let tableHtml = '<table>';
+            tableHtml += '<tr><th>Quantity</th><th>Variety</th><th>Submitted</th><th>Category</th><th>Crop</th><th>Company</th><th>Lot</th></tr>';
+
+
+            paginatedData.forEach(item => {
+                tableHtml += `<tr><td>${item.Quantity}</td><td>${item.Variety}</td><td>${item.Submitted}</td><td>${item.Category}</td><td>${item.Crop}</td><td>${item.Company}</td><td>${item.Lot}</td></tr>`;
+            });
+
+
+            tableHtml += '</table>';
+
+
+            document.getElementById('dashboardTable').innerHTML = tableHtml;
+        }
+
+
+        function renderPagination(totalPages) {
+            let paginationHtml = '';
+
+
+            paginationHtml += `<button onclick="changePage(currentPage - 1)" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+            paginationHtml += `<button onclick="changePage(currentPage + 1)" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+
+
+            document.getElementById('pagination').innerHTML = paginationHtml;
+        }
+
+
+        function changePage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            fetchData();
+        }
+
+
+        function refreshData() {
+            fetch('/refresh-data', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        fetchData(); // Refresh the data in the dashboard
+                    } else {
+                        console.error('Error refreshing data:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error refreshing data:', error));
+        }
+
+
+        function searchPrinted() {
+            const lotNumber = document.getElementById('printedInput').value;
+            fetch(`/search-printed?query=${encodeURIComponent(lotNumber)}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('printedResult').value = data;
+                })
+                .catch(error => console.error('Error searching printed:', error));
+        }
+
+
+        function searchDelivered() {
+            const lotNumber = document.getElementById('deliveredInput').value;
+            fetch(`/search-delivered?query=${encodeURIComponent(lotNumber)}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('deliveredResult').value = data;
+                })
+                .catch(error => console.error('Error searching delivered:', error));
+        }
+    </script>
+</body>
+</html>
+
+
+

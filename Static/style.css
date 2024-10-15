@@ -1,0 +1,74 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* White background */
+    overflow: hidden; /* Prevent scrolling of background images */
+}
+
+/* Login box styling */
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    text-align: center;
+    width: 300px;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #00aa00; /* Green color for the title */
+}
+
+.textbox {
+    margin-bottom: 20px;
+}
+
+.textbox input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 4px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #00aa00; /* Green button background */
+    border: none;
+    color: #ffffff; /* White text color */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #007700; /* Darker green on hover */
+}
+
+/* Background images styling */
+.background-images {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind everything */
+    /* Example background images */
+    background-image: url('th.jpeg');
+    background-size: cover; /* Cover the entire background */
+    background-position: center;
+    filter: blur(5px); /* Optional: Apply blur effect to background */
+}
